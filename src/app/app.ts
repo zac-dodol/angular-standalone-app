@@ -97,6 +97,6 @@ export class AppComponent {
 
   showToast(message: string) {
     this.toastMessage.set(message);
-    setTimeout(() => this.toastMessage.set(""), 30000);
+    setTimeout(() => this.toastMessage.set(""), 3000);
   }
 }
