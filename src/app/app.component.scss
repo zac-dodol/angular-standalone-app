@@ -1,0 +1,22 @@
+:host {
+  display: block;
+  font-family: sans-serif;
+}
+
+.dark {
+  background-color: #1a202c;
+  color: #f7fafc;
+}
+
+button {
+  transition: background-color 0.3s;
+}
+
+nav a {
+  transition: color 0.3s;
+  text-decoration: none;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}

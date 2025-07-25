@@ -12,5 +12,13 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./lazy/lazy.component').then((m) => m.LazyComponent),
   },
+  {
+    path: 'ticket-manager',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./ticket-manager/ticket-manager.component').then(
+        (m) => m.TicketManagerComponent
+      ),
+  },
   { path: '', redirectTo: '/hello', pathMatch: 'full' },
 ];
