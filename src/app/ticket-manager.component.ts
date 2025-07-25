@@ -1,0 +1,127 @@
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Store } from '@ngrx/store';
+import {
+  ReactiveFormsModule,
+  FormBuilder,
+  FormGroup,
+  FormControl,
+} from '@angular/forms';
+import { addTicket, deleteTicket, updateTicket } from './state/ticket.actions';
+import { Ticket } from './state/ticket.reducer';
+import { selectTickets } from './state/ticket.selector';
+import { Observable } from 'rxjs';
+
+@Component({
+  selector: 'ticket-manager',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
+  template: `
+    <div class="mt-10 border p-6 rounded-md bg-white dark:bg-gray-800 shadow">
+      <h2 class="text-2xl font-semibold mb-4">🎫 Ticket Manager</h2>
+      <form [formGroup]="addForm" (ngSubmit)="add()" class="mb-4 flex gap-2">
+        <input
+          formControlName="title"
+          class="flex-1 px-4 py-2 border dark:bg-gray-700 border-gray-300 dark:border-gray-600 rounded"
+          placeholder="New ticket title"
+        />
+        <button
+          type="submit"
+          class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+        >
+          Add
+        </button>
+      </form>
+      <ul *ngIf="tickets$ | async as tickets" class="space-y-2">
+        <li
+          *ngFor="let t of tickets"
+          class="flex justify-between items-center border p-2 rounded dark:border-gray-600"
+        >
+          <form [formGroup]="editForms[t.id]" class="flex flex-1 gap-2">
+            <input
+              formControlName="title"
+              class="flex-1 px-2 py-1 rounded dark:bg-gray-700"
+            />
+            <div class="space-x-2">
+              <button
+                *ngIf="editForms[t.id].dirty"
+                type="button"
+                (click)="update(t.id)"
+                class="px-3 py-1 bg-yellow-500 text-white rounded"
+              >
+                Update
+              </button>
+              <button
+                *ngIf="editForms[t.id].dirty"
+                type="button"
+                (click)="revert(t.id, t.title)"
+                class="px-3 py-1 bg-gray-500 text-white rounded"
+              >
+                Revert
+              </button>
+              <button
+                type="button"
+                (click)="remove(t.id)"
+                class="px-3 py-1 bg-red-500 text-white rounded"
+              >
+                Delete
+              </button>
+            </div>
+          </form>
+        </li>
+      </ul>
+    </div>
+  `,
+})
+export class TicketManagerComponent {
+  tickets$: Observable<Ticket[]>;
+  addForm: FormGroup;
+  editForms: Record<number, FormGroup> = {};
+
+  constructor(private store: Store, private fb: FormBuilder) {
+    this.tickets$ = this.store.select(selectTickets);
+    this.addForm = this.fb.group({ title: '' });
+
+    this.tickets$.subscribe((tickets) => {
+      for (const t of tickets) {
+        if (!this.editForms[t.id]) {
+          this.editForms[t.id] = this.fb.group({
+            title: new FormControl(t.title),
+          });
+        } else {
+          this.editForms[t.id].setValue(
+            { title: t.title },
+            { emitEvent: false }
+          );
+          this.editForms[t.id].markAsPristine();
+        }
+      }
+    });
+  }
+
+  add() {
+    const title = this.addForm.value.title.trim();
+    if (title) {
+      this.store.dispatch(addTicket({ title }));
+      this.addForm.reset();
+    }
+  }
+
+  update(id: number) {
+    const control = this.editForms[id];
+    const newTitle = control.value.title.trim();
+    if (newTitle && confirm('Are you sure you want to update this ticket?')) {
+      this.store.dispatch(updateTicket({ id, title: newTitle }));
+      control.markAsPristine();
+    }
+  }
+
+  revert(id: number, originalTitle: string) {
+    this.editForms[id].setValue({ title: originalTitle });
+    this.editForms[id].markAsPristine();
+  }
+
+  remove(id: number) {
+    this.store.dispatch(deleteTicket({ id }));
+  }
+}
