@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Store } from '@ngrx/store';
+import { Store, provideStore } from '@ngrx/store';
+import { provideStoreDevtools } from '@ngrx/store-devtools';
 import {
   ReactiveFormsModule,
   FormBuilder,
@@ -8,7 +9,7 @@ import {
   FormControl,
 } from '@angular/forms';
 import { addTicket, deleteTicket, updateTicket } from './state/ticket.actions';
-import { Ticket } from './state/ticket.reducer';
+import { Ticket, ticketReducer } from './state/ticket.reducer';
 import { selectTickets } from './state/ticket.selector';
 import { Observable } from 'rxjs';
 
@@ -122,6 +123,8 @@ export class TicketManagerComponent {
   }
 
   remove(id: number) {
-    this.store.dispatch(deleteTicket({ id }));
+    if (confirm('Are you sure you want to delete this ticket?')) {
+      this.store.dispatch(deleteTicket({ id }));
+    }
   }
 }
