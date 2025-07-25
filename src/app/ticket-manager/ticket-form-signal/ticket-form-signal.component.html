@@ -1,0 +1,70 @@
+<div class="p-4 max-w-xl mx-auto">
+  <h2 class="text-2xl font-bold mb-4">
+    Ticket Manager Signal (not preserve with routing)
+  </h2>
+
+  <!-- form mode -->
+  <div class="mb-4">
+    <input
+      type="text"
+      class="w-full px-4 py-2 rounded shadow-sm focus:outline-none dark:bg-gray-700"
+      placeholder="Enter ticket title"
+      [(ngModel)]="newTicket"
+      name="newTicket"
+    />
+    <button
+      (click)="addTicket()"
+      class="mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+    >
+      ➕ Add Ticket
+    </button>
+  </div>
+
+  <ul>
+    <li *ngFor="let ticket of tickets()" class="mb-2">
+      <!-- display mode -->
+      <div
+        *ngIf="editingId() !== ticket.id"
+        class="flex justify-between items-center"
+      >
+        <span>{{ ticket.title }} </span>
+        <div>
+          <button
+            (click)="editTicket(ticket.id, ticket.title)"
+            class="text-sm text-yellow-600 hover:underline mr-2"
+          >
+            ✏️ Edit
+          </button>
+          <button
+            (click)="deleteTicket(ticket.id)"
+            class="text-sm text-red-600 hover:underline"
+          >
+            🗑️ Delete
+          </button>
+        </div>
+      </div>
+
+      <!-- edit mode -->
+      <div *ngIf="editingId() === ticket.id" class="flex items-center gap-2">
+        <input
+          type="text"
+          class="px-2 py-1 border rounded dark:bg-gray-700"
+          [(ngModel)]="updatedTitle"
+          name="updatedTitle"
+        />
+        <button
+          (click)="updateTicket(ticket.id)"
+          class="px-2 py-1 bg-green-600 text-white rounded hover:bg-green-700"
+        >
+          ✅ Save
+        </button>
+        <button
+          (click)="cancelEdit()"
+          class="px-2 py-1 bg-gray-400 text-white rounded hover:bg-gray-500"
+        >
+          ❌ Cancel
+        </button>
+      </div>
+    </li>
+  </ul>
+</div>
