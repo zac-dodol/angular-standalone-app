@@ -1,7 +1,8 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { RouterModule, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { AuthService } from './auth-service';
+import { AuthService } from './auth/auth-service';
+import { ToastService } from './shared/toast.service';
 
 @Component({
   selector: 'app-root',
@@ -13,30 +14,21 @@ import { AuthService } from './auth-service';
 export class AppComponent {
   private auth = inject(AuthService);
   private router = inject(Router);
+  private toast = inject(ToastService);
+
   isLoggedIn = computed(() => this.auth.isLoggedIn());
   title = 'standalone-demo';
 
   isDarkMode = signal(false);
-  toastMessage = signal('');
-
-  toggleLogin() {
-    this.auth.toggle();
-    const msg = this.isLoggedIn()
-      ? '✅ You are now logged in.'
-      : '👋 You have logged out.';
-    this.showToast(msg);
-
-    if (!this.isLoggedIn()) {
-      this.router.navigateByUrl('/hello');
-    }
-  }
 
   toggleDarkMode() {
     this.isDarkMode.set(!this.isDarkMode());
   }
 
-  showToast(message: string) {
-    this.toastMessage.set(message);
-    setTimeout(() => this.toastMessage.set(''), 3000);
+  logout() {
+    this.auth.logout();
+    this.toast.show('👋 You have logged out.');
   }
+
+  toastMessage = this.toast.toastMessage;
 }
