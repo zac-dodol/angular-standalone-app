@@ -1,0 +1,46 @@
+<div
+  *ngIf="fund; else noData"
+  class="max-w-md mx-auto p-6 border border-gray-300 rounded shadow"
+>
+  <h2 class="text-2xl font-bold mb-4">Purchase Summary</h2>
+
+  <p class="mb-2"><strong>Fund:</strong> {{ fund.name }} ({{ fund.ticker }})</p>
+  <p class="mb-2"><strong>Quantity:</strong> {{ quantity }}</p>
+  <p class="mb-4"><strong>Total Cost:</strong> ${{ totalCost }}</p>
+
+  <div class="flex space-x-4">
+    <button
+      (click)="cancelPurchase()"
+      class="px-4 py-2 rounded bg-gray-500 text-white hover:bg-gray-600"
+    >
+      Cancel
+    </button>
+
+    <button
+      (click)="confirmPurchase()"
+      [disabled]="purchaseConfirmed"
+      class="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50"
+    >
+      Confirm Purchase
+    </button>
+  </div>
+
+  <p *ngIf="purchaseConfirmed" class="text-green-600 mt-4">
+    Purchase successful!
+  </p>
+  <p *ngIf="purchaseFailed" class="text-red-600 mt-4">
+    Purchase failed. Please try again.
+  </p>
+</div>
+
+<ng-template #noData>
+  <div class="text-center p-6">
+    <p class="mb-4">No fund purchase data found. Please select a fund first.</p>
+    <button
+      routerLink="/funds"
+      class="px-4 py-2 rounded border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
+    >
+      Browse Funds
+    </button>
+  </div>
+</ng-template>

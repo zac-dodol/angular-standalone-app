@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { addTicket, deleteTicket, updateTicket } from '../state/ticket.actions';
 import { selectTickets } from '../state/ticket.selector';
-import { ToastService } from '../../shared/toast.service';
+import { ToastService } from '../../services/toast.service';
 import { Ticket } from '../state/ticket.reducer';
 
 @Component({

@@ -3,9 +3,18 @@
   class="transition-colors duration-500 min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100 font-sans"
 >
   <div class="max-w-3xl mx-auto py-8 px-4">
-    <h1 class="text-4xl font-bold text-center mb-8">
-      ✨ Standalone Angular App ✨
-    </h1>
+    <div class="text-center flex justify-between items-center mb-8">
+      <h1 class="text-4xl font-bold text-center">
+        ✨ Standalone Angular App ✨
+      </h1>
+
+      <button
+        class="px-4 py-2 rounded text-white bg-indigo-600 hover:bg-indigo-700 transition-colors duration-300"
+        (click)="toggleDarkMode()"
+      >
+        Toggle {{ isDarkMode() ? "Light" : "Dark" }} Mode
+      </button>
+    </div>
 
     <nav class="flex justify-center gap-6 mb-6">
       <a
@@ -48,14 +57,22 @@
       </button>
     </nav>
 
-    <div class="text-center mb-4">
+    <nav class="bg-blue-600 text-white flex items-center px-6 py-3">
+      <h1 class="text-xl font-semibold flex-grow">Fund Management System</h1>
+
       <button
-        class="px-4 py-2 rounded text-white bg-indigo-600 hover:bg-indigo-700 transition-colors duration-300"
-        (click)="toggleDarkMode()"
+        class="hover:bg-blue-500 px-3 py-2 rounded"
+        routerLink="/portfolio"
       >
-        Toggle {{ isDarkMode() ? "Light" : "Dark" }} Mode
+        Portfolio
       </button>
-    </div>
+      <button
+        class="ml-3 hover:bg-blue-500 px-3 py-2 rounded"
+        routerLink="/funds"
+      >
+        Discover Funds
+      </button>
+    </nav>
 
     <div
       *ngIf="toastMessage()"
@@ -68,6 +85,8 @@
       </div>
     </div>
 
-    <router-outlet></router-outlet>
+    <div class="flex items-center justify-center">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>

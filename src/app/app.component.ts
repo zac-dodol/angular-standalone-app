@@ -1,8 +1,8 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { RouterModule, Router } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from './auth/auth-service';
-import { ToastService } from './shared/toast.service';
+import { ToastService } from './services/toast.service';
 
 @Component({
   selector: 'app-root',
@@ -13,13 +13,12 @@ import { ToastService } from './shared/toast.service';
 })
 export class AppComponent {
   private auth = inject(AuthService);
-  private router = inject(Router);
   private toast = inject(ToastService);
 
   isLoggedIn = computed(() => this.auth.isLoggedIn());
   title = 'standalone-demo';
 
-  isDarkMode = signal(false);
+  isDarkMode = signal(true);
 
   toggleDarkMode() {
     this.isDarkMode.set(!this.isDarkMode());
