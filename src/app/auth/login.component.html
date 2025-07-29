@@ -1,0 +1,9 @@
+<div class="max-w-md mx-auto bg-white dark:bg-gray-800 p-6 rounded shadow">
+  <h2 class="text-xl font-semibold mb-4">🔐 Login</h2>
+  <form [formGroup]="form" (ngSubmit)="submit()" class="space-y-4">
+    <input formControlName="username" class="w-full p-2 border rounded dark:bg-gray-700" placeholder="Username" />
+    <input type="password" formControlName="password" class="w-full p-2 border rounded dark:bg-gray-700" placeholder="Password" />
+    <div *ngIf="error" class="text-red-500 text-sm">{{ error }}</div>
+    <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Login</button>
+  </form>
+</div>

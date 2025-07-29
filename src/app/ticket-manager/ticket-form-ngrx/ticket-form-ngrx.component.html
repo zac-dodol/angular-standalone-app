@@ -1,0 +1,68 @@
+<div class="mt-10 p-6 rounded-md bg-white dark:bg-gray-800 shadow">
+  <h2 class="text-2xl font-semibold mb-4 text-green-900 dark:text-green-100">
+    🎫 Ticket Manager (preserve with routing)
+  </h2>
+
+  <form [formGroup]="addForm" (ngSubmit)="add()" class="mb-4 flex gap-2">
+    <input
+      formControlName="title"
+      class="flex-1 px-4 py-2 border dark:bg-gray-700 border-gray-300 dark:border-gray-600 rounded"
+      placeholder="New ticket title"
+    />
+    <button
+      type="submit"
+      class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+      [disabled]="addForm.invalid"
+    >
+      Add
+    </button>
+  </form>
+
+  <div
+    *ngIf="addForm.get('title')?.invalid && addForm.get('title')?.touched"
+    class="text-red-500 text-sm mb-4"
+  >
+    Title is required.
+  </div>
+
+  <ul *ngIf="tickets$ | async as tickets" class="space-y-2">
+    <!-- list n edit mode in together -->
+    <li
+      *ngFor="let t of tickets"
+      class="flex justify-between items-center border p-2 rounded dark:border-gray-600"
+    >
+      <form [formGroup]="editForms[t.id]" class="flex flex-1 gap-2">
+        <input
+          formControlName="title"
+          class="flex-1 px-2 py-1 rounded dark:bg-gray-700"
+        />
+        <div class="space-x-2">
+          <button
+            *ngIf="editForms[t.id].dirty"
+            type="button"
+            (click)="update(t.id)"
+            class="px-3 py-1 bg-yellow-500 text-white rounded"
+            [disabled]="editForms[t.id].invalid"
+          >
+            Update
+          </button>
+          <button
+            *ngIf="editForms[t.id].dirty"
+            type="button"
+            (click)="revert(t.id, t.title)"
+            class="px-3 py-1 bg-gray-500 text-white rounded"
+          >
+            Revert
+          </button>
+          <button
+            type="button"
+            (click)="remove(t.id)"
+            class="px-3 py-1 bg-red-500 text-white rounded"
+          >
+            Delete
+          </button>
+        </div>
+      </form>
+    </li>
+  </ul>
+</div>

@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { HelloComponent } from './hello/hello.component';
 import { AboutComponent } from './about/about.component';
-import { authGuard } from './auth-guard';
+import { authGuard } from './auth/auth-guard';
 
 export const routes: Routes = [
   { path: 'hello', component: HelloComponent },
@@ -19,6 +19,11 @@ export const routes: Routes = [
       import('./ticket-manager/ticket-manager.component').then(
         (m) => m.TicketManagerComponent
       ),
+  },
+  {
+    path: 'login',
+    loadComponent: () =>
+      import('./auth/login.component').then((m) => m.LoginComponent),
   },
   { path: '', redirectTo: '/hello', pathMatch: 'full' },
 ];
