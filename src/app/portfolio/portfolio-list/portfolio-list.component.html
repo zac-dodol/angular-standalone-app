@@ -1,0 +1,90 @@
+<h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">
+  Your Portfolio
+</h2>
+
+<table
+  class="min-w-full table-auto border-collapse border border-gray-300 dark:border-gray-700"
+>
+  <thead>
+    <tr class="bg-gray-100 dark:bg-gray-800">
+      <th
+        class="border border-gray-300 dark:border-gray-700 px-4 py-2 text-left text-gray-700 dark:text-gray-300"
+      >
+        Fund
+      </th>
+      <th
+        class="border border-gray-300 dark:border-gray-700 px-4 py-2 text-left text-gray-700 dark:text-gray-300"
+      >
+        Ticker
+      </th>
+      <th
+        class="border border-gray-300 dark:border-gray-700 px-4 py-2 text-right text-gray-700 dark:text-gray-300"
+      >
+        Price
+      </th>
+      <th
+        class="border border-gray-300 dark:border-gray-700 px-4 py-2 text-right text-gray-700 dark:text-gray-300"
+      >
+        Quantity
+      </th>
+      <th
+        class="border border-gray-300 dark:border-gray-700 px-4 py-2 text-center text-gray-700 dark:text-gray-300"
+      >
+        Actions
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      *ngFor="let fund of funds"
+      class="hover:bg-gray-50 dark:hover:bg-gray-700"
+    >
+      <td
+        class="border border-gray-300 dark:border-gray-700 px-4 py-2 text-gray-900 dark:text-gray-100"
+      >
+        {{ fund.name }}
+      </td>
+      <td
+        class="border border-gray-300 dark:border-gray-700 px-4 py-2 text-gray-900 dark:text-gray-100"
+      >
+        {{ fund.ticker }}
+      </td>
+      <td
+        class="border border-gray-300 dark:border-gray-700 px-4 py-2 text-right text-gray-900 dark:text-gray-100"
+      >
+        ${{ fund.price }}
+      </td>
+      <td
+        class="border border-gray-300 dark:border-gray-700 px-4 py-2 text-right text-gray-900 dark:text-gray-100"
+      >
+        {{ fund.quantityOwned }}
+      </td>
+      <td
+        class="border border-gray-300 dark:border-gray-700 px-4 py-2 text-center space-x-2"
+      >
+        <button
+          (click)="openBuySellDialog(fund, 'buy')"
+          class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded"
+        >
+          Buy
+        </button>
+        <button
+          (click)="openBuySellDialog(fund, 'sell')"
+          [disabled]="fund.quantityOwned === 0"
+          [class.opacity-50]="fund.quantityOwned === 0"
+          class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded disabled:cursor-not-allowed"
+        >
+          Sell
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Buy/Sell Modal -->
+<app-fund-action-dialog
+  *ngIf="selectedFund"
+  [fund]="selectedFund"
+  [action]="selectedAction!"
+  (close)="closeDialog($event)"
+></app-fund-action-dialog>

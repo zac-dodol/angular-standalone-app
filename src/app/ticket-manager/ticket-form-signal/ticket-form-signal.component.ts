@@ -1,7 +1,7 @@
 import { Component, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ToastService } from '../../shared/toast.service';
+import { ToastService } from '../../services/toast.service';
 import { signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 

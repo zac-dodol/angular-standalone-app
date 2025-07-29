@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from './auth-service';
-import { ToastService } from '../shared/toast.service';
+import { ToastService } from '../services/toast.service';
 
 @Component({
   selector: 'app-login',
