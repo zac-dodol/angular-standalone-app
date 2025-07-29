@@ -8,12 +8,16 @@ import {
   Validators,
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, take, timer } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { addTicket, deleteTicket, updateTicket } from '../state/ticket.actions';
 import { selectTickets } from '../state/ticket.selector';
 import { ToastService } from '../../services/toast.service';
 import { Ticket } from '../state/ticket.reducer';
+import {
+  addNotification,
+  removeNotification,
+} from '../../notifications/state/notification.actions';
 
 @Component({
   selector: 'ticket-form-ngrx',
@@ -60,6 +64,12 @@ export class TicketFromNGRXComponent {
     const title = this.addForm.value.title.trim();
     if (title) {
       this.store.dispatch(addTicket({ title }));
+      this.store.dispatch(
+        addNotification({
+          message: 'Ticket added successfully',
+          notificationType: 'success',
+        })
+      );
       this.addForm.reset();
       this.toast.show('🎫 Ticket added successfully');
     }
@@ -73,6 +83,12 @@ export class TicketFromNGRXComponent {
       this.confirmAction('Are you sure you want to update this ticket?')
     ) {
       this.store.dispatch(updateTicket({ id, title: newTitle }));
+      this.store.dispatch(
+        addNotification({
+          message: 'Ticket updated successfully',
+          notificationType: 'success',
+        })
+      );
       control.markAsPristine();
       this.toast.show('✏️ Ticket updated');
     }
@@ -86,6 +102,12 @@ export class TicketFromNGRXComponent {
   remove(id: number) {
     if (this.confirmAction('Are you sure you want to delete this ticket?')) {
       this.store.dispatch(deleteTicket({ id }));
+      this.store.dispatch(
+        addNotification({
+          message: 'Ticket deleted successfully',
+          notificationType: 'success',
+        })
+      );
       this.toast.show('🗑️ Ticket deleted');
     }
   }

@@ -6,6 +6,7 @@ import { PortfolioListComponent } from './portfolio/portfolio-list/portfolio-lis
 import { FundsListComponent } from './funds/funds-list/funds-list.component';
 import { PurchaseSummaryComponent } from './funds/fund-purchase-summary/fund-purchase-summary.component';
 import { PurchaseReceiptComponent } from './funds/purchase-receipt/purchase-receipt.component';
+import { NotificationCenterComponent } from './notifications/notification-center/notification-center.component';
 
 export const routes: Routes = [
   { path: 'hello', component: HelloComponent },
@@ -23,6 +24,10 @@ export const routes: Routes = [
       import('./ticket-manager/ticket-manager.component').then(
         (m) => m.TicketManagerComponent
       ),
+  },
+  {
+    path: 'notifications',
+    component: NotificationCenterComponent,
   },
   {
     path: 'login',

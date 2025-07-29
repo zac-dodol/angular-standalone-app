@@ -42,6 +42,12 @@
         Lazy
       </a>
       <a
+        routerLink="/notifications"
+        class="text-blue-600 hover:underline dark:text-blue-400"
+      >
+        Notifications
+      </a>
+      <a
         *ngIf="!isLoggedIn()"
         routerLink="/login"
         class="text-blue-600 hover:underline dark:text-blue-400"
@@ -74,16 +80,7 @@
       </button>
     </nav>
 
-    <div
-      *ngIf="toastMessage()"
-      class="text-center mb-4 fixed top-10 left-0 right-0"
-    >
-      <div
-        class="inline-block px-4 py-2 rounded bg-yellow-200 text-yellow-900 transition-opacity duration-500"
-      >
-        {{ toastMessage() }}
-      </div>
-    </div>
+    <app-toast></app-toast>
 
     <div class="flex items-center justify-center">
       <router-outlet></router-outlet>
