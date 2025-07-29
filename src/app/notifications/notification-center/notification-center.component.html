@@ -1,0 +1,48 @@
+<div
+  class="notification-panel bg-white p-4 mt-4 rounded-lg shadow-md dark:bg-gray-800 dark:text-gray-100"
+>
+  <h3 class="text-xl font-semibold mb-4 dark:text-white">🔔 Notifications</h3>
+
+  <button
+    (click)="clearAll()"
+    class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors duration-200 dark:bg-blue-700 dark:hover:bg-blue-800"
+  >
+    Clear All
+  </button>
+
+  <ul class="mt-4 space-y-2">
+    <li
+      *ngFor="let n of notifications$ | async"
+      class="flex items-center justify-between p-2 border-b border-gray-200 last:border-b-0 dark:border-gray-700"
+    >
+      <div class="flex-grow">
+        <span
+          [ngClass]="{
+            'text-green-600 dark:text-green-400':
+              n.notificationType === 'success',
+            'text-red-600 dark:text-red-400': n.notificationType === 'error',
+            'text-yellow-600 dark:text-yellow-400':
+              n.notificationType === 'error',
+            'text-blue-600 dark:text-blue-400': n.notificationType === 'info'
+          }"
+          class="font-semibold mr-2"
+        >
+          [{{ n.notificationType.toUpperCase() }}]
+        </span>
+
+        <span class="text-gray-800 dark:text-gray-300">{{ n.message }}</span>
+
+        <small class="block text-xs text-gray-500 dark:text-gray-400 mt-0.5">{{
+          n.timestamp | date : "short"
+        }}</small>
+      </div>
+
+      <button
+        (click)="remove(n.id)"
+        class="ml-4 p-1 text-gray-500 hover:text-red-600 dark:text-gray-400 dark:hover:text-red-500"
+      >
+        ✖
+      </button>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,25 @@
+<section *ngIf="toastService.toastMessage()">
+  <div class="text-center mb-4 fixed bottom-10 right-10">
+    <div
+      class="inline-block px-4 py-2 rounded bg-yellow-200 text-yellow-900 transition-opacity duration-500"
+    >
+      {{ toastService.toastMessage() }}
+    </div>
+  </div>
+
+  <!-- slideInOut having async issues -->
+  <!-- <div class="fixed bottom-4 right-4 flex flex-col gap-3 z-50" [@slideInOut]> -->
+  <div class="fixed bottom-4 right-4 flex flex-col gap-3 z-50">
+    <div
+      class="max-w-xs w-full p-4 rounded-xl shadow-lg border-l-4 animate-slide-in transition-all duration-300 bg-white text-gray-800 border-green-500 dark:bg-gray-900 dark:text-white"
+    >
+      <div class="flex justify-between items-start">
+        <div class="flex-1">
+          <p class="text-sm font-medium">
+            {{ toastService.toastMessage() }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
