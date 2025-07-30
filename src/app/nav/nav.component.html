@@ -1,0 +1,63 @@
+<nav class="flex justify-center gap-6 mb-6">
+  <a
+    routerLink="/hello"
+    class="text-blue-600 hover:underline dark:text-blue-400"
+  >
+    Hello
+  </a>
+
+  <a
+    routerLink="/about"
+    class="text-blue-600 hover:underline dark:text-blue-400"
+  >
+    About
+  </a>
+
+  <a
+    *ngIf="isLoggedIn()"
+    routerLink="/ticket-manager"
+    class="text-blue-600 hover:underline dark:text-blue-400"
+  >
+    Ticketing
+  </a>
+
+  <a
+    *ngIf="isLoggedIn()"
+    routerLink="/lazy"
+    class="text-blue-600 hover:underline dark:text-blue-400"
+  >
+    Lazy
+  </a>
+
+  <a
+    *ngIf="isLoggedIn()"
+    routerLink="/notifications"
+    class="text-blue-600 hover:underline dark:text-blue-400"
+  >
+    Notifications
+  </a>
+
+  <a
+    *ngIf="isLoggedIn()"
+    routerLink="/fund-manager"
+    class="text-blue-600 hover:underline dark:text-blue-400"
+  >
+    Fund Manager
+  </a>
+
+  <a
+    *ngIf="!isLoggedIn()"
+    routerLink="/login"
+    class="text-blue-600 hover:underline dark:text-blue-400"
+  >
+    Login
+  </a>
+
+  <button
+    *ngIf="isLoggedIn()"
+    (click)="logout()"
+    class="text-blue-600 hover:underline dark:text-blue-400"
+  >
+    Logout
+  </button>
+</nav>

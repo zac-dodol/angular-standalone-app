@@ -1,0 +1,30 @@
+<nav
+  *ngIf="isLoggedIn()"
+  class="bg-blue-600 text-white flex items-center px-6 py-3 gap-10 min-w-50"
+>
+  <h1 class="text-xl font-semibold flex-grow">Fund Management System</h1>
+
+  <div class="flex items-center gap-4">
+    <button
+      class="hover:bg-blue-500 px-3 py-2 rounded"
+      [class.bg-blue-700]="activeTab() === 'portfolio'"
+      (click)="showPortfolio()"
+    >
+      Portfolio
+    </button>
+
+    <button
+      class="ml-3 hover:bg-blue-500 px-3 py-2 rounded"
+      [class.bg-blue-700]="activeTab() === 'funds'"
+      (click)="showFunds()"
+    >
+      Discover Funds
+    </button>
+  </div>
+</nav>
+
+<!-- Conditionally show component -->
+<ng-container [ngSwitch]="activeTab()">
+  <app-portfolio-list *ngSwitchCase="'portfolio'"></app-portfolio-list>
+  <app-funds-list *ngSwitchCase="'funds'"></app-funds-list>
+</ng-container>

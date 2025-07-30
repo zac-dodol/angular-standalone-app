@@ -7,6 +7,7 @@ import { FundsListComponent } from './funds/funds-list/funds-list.component';
 import { PurchaseSummaryComponent } from './funds/fund-purchase-summary/fund-purchase-summary.component';
 import { PurchaseReceiptComponent } from './funds/purchase-receipt/purchase-receipt.component';
 import { NotificationCenterComponent } from './notifications/notification-center/notification-center.component';
+import { FundHeaderComponent } from './portfolio/fund-header/fund-header.component';
 
 export const routes: Routes = [
   { path: 'hello', component: HelloComponent },
@@ -34,8 +35,7 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./auth/login.component').then((m) => m.LoginComponent),
   },
-  { path: 'portfolio', component: PortfolioListComponent },
-  { path: 'funds', component: FundsListComponent },
+  { path: 'fund-manager', component: FundHeaderComponent },
   { path: 'summary', component: PurchaseSummaryComponent },
   { path: 'receipt', component: PurchaseReceiptComponent },
   { path: '', redirectTo: '/hello', pathMatch: 'full' },

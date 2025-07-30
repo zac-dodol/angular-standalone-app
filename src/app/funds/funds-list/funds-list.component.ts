@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, computed, OnInit, signal, inject } from '@angular/core';
 import { Fund } from '../../models/fund.model';
 import { FundService } from '../../services/fund.service';
 import { Router } from '@angular/router';
@@ -7,21 +7,51 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-funds-list',
+  standalone: true,
+  imports: [CommonModule, FundDetailsDialogComponent],
   templateUrl: './funds-list.component.html',
-  styleUrls: ['./funds-list.component.scss'],
-  imports: [FundDetailsDialogComponent, CommonModule],
+  styleUrl: './funds-list.component.scss',
 })
 export class FundsListComponent implements OnInit {
+  private fundService = inject(FundService);
+  private router = inject(Router);
+
+  // Track selected tab
+  selectedTab = signal<'new' | 'all'>('new');
+
+  // List of funds
   newFunds: Fund[] = [];
+  allFunds: Fund[] = [];
   selectedFund?: Fund;
 
-  constructor(private fundService: FundService, private router: Router) {}
-
   ngOnInit(): void {
-    this.fundService
-      .getNewFunds()
-      .subscribe((funds) => (this.newFunds = funds));
+    this.loadNewFunds();
+    this.loadAllFunds();
   }
+
+  loadNewFunds() {
+    this.fundService.getNewFunds().subscribe((funds) => {
+      this.newFunds = funds;
+    });
+  }
+
+  loadAllFunds() {
+    this.fundService.getAllFunds().subscribe((funds) => {
+      this.allFunds = funds;
+    });
+  }
+
+  showNewFunds() {
+    this.selectedTab.set('new');
+  }
+
+  showAllFunds() {
+    this.selectedTab.set('all');
+  }
+
+  visibleFunds = computed(() => {
+    return this.selectedTab() === 'new' ? this.newFunds : this.allFunds;
+  });
 
   openDetails(fund: Fund): void {
     this.selectedFund = fund;

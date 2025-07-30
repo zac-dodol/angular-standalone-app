@@ -35,6 +35,16 @@ export class FundService {
       returns: 4,
       quantityOwned: 20,
     },
+    {
+      id: 4,
+      name: 'Allianz Global Fund',
+      ticker: 'AGF',
+      price: 180,
+      description: 'Diversified global investments',
+      risk: 'High',
+      returns: 7,
+      quantityOwned: 0,
+    },
   ];
 
   // This simulates the user portfolio (funds owned)

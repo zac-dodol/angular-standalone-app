@@ -16,69 +16,7 @@
       </button>
     </div>
 
-    <nav class="flex justify-center gap-6 mb-6">
-      <a
-        routerLink="/hello"
-        class="text-blue-600 hover:underline dark:text-blue-400"
-      >
-        Hello
-      </a>
-      <a
-        routerLink="/about"
-        class="text-blue-600 hover:underline dark:text-blue-400"
-      >
-        About
-      </a>
-      <a
-        routerLink="/ticket-manager"
-        class="text-blue-600 hover:underline dark:text-blue-400"
-      >
-        Ticketing
-      </a>
-      <a
-        routerLink="/lazy"
-        class="text-blue-600 hover:underline dark:text-blue-400"
-      >
-        Lazy
-      </a>
-      <a
-        routerLink="/notifications"
-        class="text-blue-600 hover:underline dark:text-blue-400"
-      >
-        Notifications
-      </a>
-      <a
-        *ngIf="!isLoggedIn()"
-        routerLink="/login"
-        class="text-blue-600 hover:underline dark:text-blue-400"
-      >
-        Login
-      </a>
-      <button
-        *ngIf="isLoggedIn()"
-        (click)="logout()"
-        class="text-blue-600 hover:underline dark:text-blue-400"
-      >
-        Logout
-      </button>
-    </nav>
-
-    <nav class="bg-blue-600 text-white flex items-center px-6 py-3">
-      <h1 class="text-xl font-semibold flex-grow">Fund Management System</h1>
-
-      <button
-        class="hover:bg-blue-500 px-3 py-2 rounded"
-        routerLink="/portfolio"
-      >
-        Portfolio
-      </button>
-      <button
-        class="ml-3 hover:bg-blue-500 px-3 py-2 rounded"
-        routerLink="/funds"
-      >
-        Discover Funds
-      </button>
-    </nav>
+    <app-nav></app-nav>
 
     <app-toast></app-toast>
 

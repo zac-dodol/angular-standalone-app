@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Fund } from '../../models/fund.model';
 import { CommonModule } from '@angular/common';
@@ -10,12 +10,13 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
 })
 export class PurchaseReceiptComponent implements OnInit {
+  private router = inject(Router);
   fund?: Fund;
   quantity: number = 0;
   totalCost: number = 0;
   success: boolean = false;
 
-  constructor(private router: Router) {
+  constructor() {
     // Retrieve purchase result from router state or fallback
     const nav = this.router.getCurrentNavigation();
     const state = nav?.extras.state as {
@@ -39,11 +40,7 @@ export class PurchaseReceiptComponent implements OnInit {
     }
   }
 
-  goToPortfolio() {
-    this.router.navigate(['/portfolio']);
-  }
-
-  goToFunds() {
-    this.router.navigate(['/funds']);
+  goToFundPage() {
+    this.router.navigate(['/fund-manager']);
   }
 }

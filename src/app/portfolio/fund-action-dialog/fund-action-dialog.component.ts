@@ -74,14 +74,17 @@ export class FundActionDialogComponent implements OnChanges {
 
     if (this.action === 'buy') {
       success = this.transactionService.buyFund(this.fund.id, qty);
-      this.toast.show(`Purchased ${qty} units of ${this.fund.name}`);
     } else if (this.action === 'sell') {
       success = this.transactionService.sellFund(this.fund.id, qty);
-      this.toast.show(`Sold ${qty} units of ${this.fund.name}`);
     }
 
     if (success) {
       this.close.emit(true);
+      if (this.action === 'buy') {
+        this.toast.show(`Purchased ${qty} units of ${this.fund.name}`);
+      } else if (this.action === 'sell') {
+        this.toast.show(`Sold ${qty} units of ${this.fund.name}`);
+      }
     } else {
       alert('Transaction failed. Please check quantity and try again.');
     }

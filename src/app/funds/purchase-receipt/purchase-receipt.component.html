@@ -8,10 +8,10 @@
     <p><strong>Quantity:</strong> {{ quantity }}</p>
     <p><strong>Total Cost:</strong> ${{ totalCost }}</p>
     <button
-      (click)="goToPortfolio()"
+      (click)="goToFundPage()"
       class="mt-6 px-6 py-2 bg-green-600 hover:bg-green-700 text-white rounded"
     >
-      Back to Portfolio
+      Back to Fund Page
     </button>
   </ng-container>
 
@@ -19,7 +19,7 @@
     <h2 class="text-3xl font-bold mb-4 text-red-600">Purchase Failed</h2>
     <p class="mb-4">Unfortunately, the transaction could not be completed.</p>
     <button
-      (click)="goToFunds()"
+      (click)="goToFundPage()"
       class="px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded"
     >
       Try Again

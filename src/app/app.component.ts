@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from './auth/auth-service';
 import { ToastService } from './services/toast.service';
 import { ToastComponent } from './toast/toast.component';
+import { NavComponent } from './nav/nav.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterModule, CommonModule, ToastComponent],
+  imports: [RouterModule, CommonModule, ToastComponent, NavComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
